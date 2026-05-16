@@ -1,5 +1,6 @@
 # Multi-stage build: compile the Procure CRM SPA, then serve via nginx.
 # Targets Zeabur Docker. Independent of TanStack Start SSR / Cloudflare Workers.
+# rev 2 — force Zeabur to clone fresh after webhook miss
 
 # ── Stage 1: build the SPA bundle ───────────────────────────────────────────
 FROM node:20-alpine AS builder
