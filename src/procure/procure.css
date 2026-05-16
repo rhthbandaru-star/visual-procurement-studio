@@ -44,7 +44,7 @@
   }
 }
 
-body {
+.procure-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg3);
   color: var(--text);
