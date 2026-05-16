@@ -1,48 +1,34 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Slate + Lime — dark editorial palette with a crisp lime signal color */
 :root {
-  --bg:       #ffffff;
-  --bg2:      #f8f8f7;
-  --bg3:      #f1f0ed;
-  --text:     #1a1a18;
-  --text2:    #6b6a66;
-  --text3:    #9b9a96;
-  --border:   rgba(0,0,0,0.10);
-  --border2:  rgba(0,0,0,0.20);
-  --blue:        #185FA5;
-  --blue-bg:     #E6F1FB;
-  --blue-dark:   #0C447C;
-  --green:       #3B6D11;
-  --green-bg:    #EAF3DE;
-  --amber:       #854F0B;
-  --amber-bg:    #FAEEDA;
-  --gray:        #5F5E5A;
-  --gray-bg:     #F1EFE8;
-  --red-bg:      #FCEBEB;
-  --red-text:    #A32D2D;
+  --bg:       #181b1d;
+  --bg2:      #1d2123;
+  --bg3:      #101314;
+  --text:     #eef2f3;
+  --text2:    #8b9197;
+  --text3:    #5b6064;
+  --border:   rgba(255,255,255,0.07);
+  --border2:  rgba(255,255,255,0.18);
+
+  /* Lime is the new primary accent (replaces blue) */
+  --blue:        #a3e635;
+  --blue-bg:     rgba(163,230,53,0.12);
+  --blue-dark:   #b8f04a;
+
+  --green:       #a3e635;
+  --green-bg:    rgba(163,230,53,0.12);
+  --amber:       #f0b15a;
+  --amber-bg:    rgba(240,177,90,0.12);
+  --gray:        #8b9197;
+  --gray-bg:     rgba(255,255,255,0.05);
+  --red-bg:      rgba(220,80,80,0.14);
+  --red-text:    #f09595;
+
   --radius:    8px;
   --radius-lg: 12px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:    #1c1c1a;
-    --bg2:   #252523;
-    --bg3:   #2e2e2b;
-    --text:  #f0efe9;
-    --text2: #9b9a96;
-    --text3: #6b6a66;
-    --border:  rgba(255,255,255,0.10);
-    --border2: rgba(255,255,255,0.22);
-    --blue-bg:    #0c2d4f;
-    --blue-dark:  #85B7EB;
-    --green-bg:   #1a3308;
-    --amber-bg:   #3d2504;
-    --gray-bg:    #2a2a28;
-    --red-bg:     #3d0f0f;
-    --red-text:   #f09595;
-  }
-}
 
 .procure-root {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
