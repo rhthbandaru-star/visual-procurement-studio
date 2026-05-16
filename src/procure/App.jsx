@@ -83,6 +83,26 @@ export default function App() {
             )}
           </div>
           <div className="topbar-actions">
+            <a
+              href="/swarm"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '8px 14px',
+                borderRadius: 6,
+                background: 'hsl(220 90% 64%)',
+                color: 'hsl(220 30% 10%)',
+                fontWeight: 600,
+                fontSize: 13,
+                textDecoration: 'none',
+                letterSpacing: '-0.01em',
+                boxShadow: 'inset 0 1px 0 hsl(220 90% 70% / .4), inset 0 -1px 0 hsl(220 90% 50% / .3)',
+              }}
+            >
+              <i className="ti ti-bolt" aria-hidden="true" />
+              Live ShadowBuyer swarm →
+            </a>
             <Btn icon="ti-search">Search</Btn>
             <Btn icon="ti-adjustments-horizontal">Filter</Btn>
             <Btn primary icon="ti-plus">
