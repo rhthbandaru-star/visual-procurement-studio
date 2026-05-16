@@ -175,8 +175,8 @@
   font-family: inherit;
 }
 .btn:hover { background: var(--bg2); }
-.btn-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-.btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); }
+.btn-primary { background: var(--blue); color: #101314; border-color: var(--blue); }
+.btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: #101314; }
 .btn-icon { padding: 5px 8px; }
 
 /* ── Badges ─────────────────────────────────────────── */
@@ -203,10 +203,10 @@
   display: inline-block;
   flex-shrink: 0;
 }
-.dot-green  { background: #639922; }
-.dot-amber  { background: #BA7517; }
-.dot-blue   { background: #378ADD; }
-.dot-gray   { background: #888780; }
+.dot-green  { background: #a3e635; }
+.dot-amber  { background: #f0b15a; }
+.dot-blue   { background: #a3e635; }
+.dot-gray   { background: #5b6064; }
 
 /* ── Metrics ────────────────────────────────────────── */
 .metrics {
@@ -258,7 +258,7 @@
 .v-cat i { font-size: 13px; }
 .v-meta  { display: flex; justify-content: space-between; align-items: center; }
 .v-score { font-size: 12px; color: var(--text2); display: flex; align-items: center; gap: 3px; }
-.star    { color: #BA7517; font-size: 13px; }
+.star    { color: #f0b15a; font-size: 13px; }
 
 /* ── List table ─────────────────────────────────────── */
 .list-table { width: 100%; border-collapse: collapse; }
@@ -350,14 +350,14 @@
   align-items: center;
   gap: 6px;
 }
-.live-indicator { color: #378ADD; display: flex; align-items: center; gap: 3px; }
+.live-indicator { color: var(--blue); display: flex; align-items: center; gap: 3px; }
 .live-indicator i { font-size: 8px; }
 
 .cursor {
   display: inline-block;
   width: 2px;
   height: 12px;
-  background: #378ADD;
+  background: var(--blue);
   margin-left: 2px;
   animation: blink 1s infinite;
   vertical-align: middle;
