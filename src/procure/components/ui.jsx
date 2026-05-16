@@ -24,11 +24,13 @@ export function StatusDot({ variant = 'gray', label }) {
   )
 }
 
-export function Btn({ primary, icon, children, onClick, small }) {
+export function Btn({ primary, icon, children, onClick, small, disabled }) {
   return (
     <button
+      type="button"
       className={['btn', primary ? 'btn-primary' : '', small ? 'btn-icon' : ''].join(' ')}
       onClick={onClick}
+      disabled={disabled}
     >
       {icon && <i className={`ti ${icon}`} aria-hidden="true" />}
       {children}

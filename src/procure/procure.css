@@ -412,3 +412,194 @@
   color: var(--red-text);
   font-size: 13px;
 }
+
+/* ── ShadowBuyer swarm: header + pipeline + columns + verdict + email ── */
+
+.neg-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.swarm-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 14px;
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.swarm-header-left { display: flex; align-items: center; gap: 8px; min-width: 220px; }
+.swarm-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text3); transition: background 0.2s; }
+.swarm-dot.live {
+  background: var(--blue);
+  box-shadow: 0 0 0 0 rgba(163,230,53,0.55);
+  animation: swarm-pulse 1.6s infinite;
+}
+@keyframes swarm-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(163,230,53,0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(163,230,53,0); }
+  100% { box-shadow: 0 0 0 0 rgba(163,230,53,0); }
+}
+.swarm-title { font-size: 13px; font-weight: 500; color: var(--text); }
+.swarm-tag {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text3); padding: 2px 8px; border-radius: 10px;
+  border: 0.5px solid var(--border); background: var(--bg);
+}
+
+.swarm-stats { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+.swarm-stat { display: flex; flex-direction: column; gap: 2px; }
+.swarm-stat-k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
+.swarm-stat-v { font-size: 13px; color: var(--text); }
+.swarm-stat-v.mono { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums; }
+.swarm-stat-v.big { font-size: 18px; color: var(--amber); font-weight: 600; }
+
+.swarm-pipeline {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  font-size: 11px;
+}
+.swarm-pipe { display: inline-flex; align-items: center; gap: 6px; }
+.swarm-step {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+  color: var(--text3);
+  letter-spacing: 0.06em; text-transform: uppercase; font-size: 10px;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+.swarm-step-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text3); }
+.swarm-step.active { color: var(--blue); border-color: var(--blue); }
+.swarm-step.active .swarm-step-dot { background: var(--blue); }
+.swarm-step.done   { color: var(--green); border-color: var(--green); }
+.swarm-step.done   .swarm-step-dot { background: var(--green); }
+.swarm-pipe-arrow { color: var(--text3); }
+
+/* Make the neg-grid auto-grow with content instead of fixed 560px now that
+   it sits inside a vertically-stacked .neg-wrap. */
+.neg-wrap .neg-grid { height: auto; min-height: 360px; }
+.neg-wrap .neg-body { max-height: 460px; }
+
+.neg-head-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+.neg-head-label.amber { color: var(--amber); }
+.neg-head-label.lime  { color: var(--blue); }
+.neg-head-model { font-size: 10px; color: var(--text3); font-family: ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 0; text-transform: none; }
+
+/* Per-role message accents. Override the legacy .msg.vendor lime border. */
+.msg.hardball { border-left: 2px solid var(--amber); }
+.msg.diplomat { border-left: 2px solid var(--blue); }
+
+.msg-meta { font-size: 11px; color: var(--text3); margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.msg-price { color: var(--amber); font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums; }
+.msg-head { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; letter-spacing: -0.01em; }
+.msg-body { font-size: 13px; color: var(--text); line-height: 1.55; }
+.msg-cites { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+.msg-cite {
+  font-size: 10px; padding: 2px 7px; border-radius: 99px;
+  background: var(--gray-bg); color: var(--text2);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: 0;
+}
+.msg-cite.verdict { background: var(--amber-bg); color: var(--amber); }
+
+.neg-empty {
+  border: 0.5px dashed var(--border2);
+  border-radius: var(--radius);
+  padding: 16px;
+  color: var(--text3);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Verdict */
+.verdict-card {
+  background: var(--bg2);
+  border: 0.5px solid rgba(240,177,90,0.32);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.verdict-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.verdict-label {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+.verdict-cites { display: flex; flex-wrap: wrap; gap: 4px; }
+.verdict-title { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--text); }
+.verdict-body  { font-size: 13px; line-height: 1.55; color: var(--text); }
+.verdict-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 4px; }
+.verdict-stat-k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
+.verdict-stat-v { font-size: 16px; color: var(--amber); font-weight: 600; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-variant-numeric: tabular-nums; margin-top: 2px; }
+
+/* Email card */
+.email-card {
+  background: var(--bg2);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.email-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 0.5px solid var(--border);
+  flex-wrap: wrap; gap: 8px;
+}
+.email-label {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--blue);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+.email-tag {
+  font-size: 10px; color: var(--text3);
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+.email-meta {
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 4px 12px;
+  padding: 10px 16px;
+  border-bottom: 0.5px solid var(--border);
+  font-size: 12px;
+}
+.email-meta-k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); padding-top: 2px; }
+.email-meta-v { color: var(--text); font-family: ui-monospace, 'SF Mono', Menlo, monospace; }
+.email-subject {
+  padding: 12px 16px;
+  font-size: 13px; font-weight: 600; letter-spacing: -0.01em;
+  border-bottom: 0.5px solid var(--border);
+}
+.email-body {
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--bg3);
+  color: var(--text);
+  font-size: 12.5px;
+  line-height: 1.6;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-height: 320px;
+  overflow: auto;
+}
+.email-cites {
+  display: flex; flex-wrap: wrap; gap: 4px;
+  padding: 10px 16px;
+  border-top: 0.5px solid var(--border);
+}
+
+@media (max-width: 720px) {
+  .swarm-header { grid-template-columns: 1fr; }
+  .swarm-stats { justify-content: flex-start; }
+  .verdict-stats { grid-template-columns: repeat(2, 1fr); }
+  .neg-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swarm-dot.live { animation: none; }
+}
