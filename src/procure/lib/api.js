@@ -1,38 +1,41 @@
 const API_URL = import.meta.env.VITE_BUTTERBASE_API_URL
 const ANON_KEY = import.meta.env.VITE_BUTTERBASE_ANON_KEY ?? 'anon'
 
-// --- Fixture data for mockups when the live API is unavailable ---
+// --- Fixture data — observability vendors for the ShadowBuyer demo ---
+// Realigned from generic procurement to match the ShadowBuyer narrative:
+// 5 observability vendors (Bright Data scrape shape), Datadog AE quote
+// (Actionbook capture shape), Datadog MSA (Contract Diff redlines), and a
+// negotiation log driven by the Hardball vs Diplomat agents.
 const FIXTURES = {
   vendors: [
-    { id: 'v1', name: 'Axion Systems',  category: 'Cloud infrastructure', status: 'preferred', rating: '4.8' },
-    { id: 'v2', name: 'NovaTech Ltd.',  category: 'Hardware & components', status: 'active',    rating: '4.5' },
-    { id: 'v3', name: 'CoreRoute Inc.', category: 'Networking',           status: 'in_review',  rating: '4.1' },
-    { id: 'v4', name: 'Proxima SaaS',   category: 'Software licensing',   status: 'preferred',  rating: '4.7' },
-    { id: 'v5', name: 'Deltalink Co.',  category: 'Logistics & supply',   status: 'active',     rating: '4.2' },
-    { id: 'v6', name: 'Helix Cloud',    category: 'Cloud infrastructure', status: 'in_review',  rating: '3.9' },
-    { id: 'v7', name: 'Quantra Labs',   category: 'R&D services',         status: 'inactive',   rating: '3.6' },
-    { id: 'v8', name: 'Beacon Print',   category: 'Print & fulfillment',  status: 'active',     rating: '4.0' },
+    { id: 'v1', name: 'Datadog',       category: 'Observability — APM + Infra', status: 'preferred',  rating: '4.3', notes: '500 hosts quoted; Q-end pressure 2026-06-30' },
+    { id: 'v2', name: 'New Relic',     category: 'Observability — APM',         status: 'active',     rating: '4.3', notes: 'PE-backed (Francisco Partners); cheaper unit economics' },
+    { id: 'v3', name: 'Honeycomb',     category: 'Observability — events',      status: 'in_review',  rating: '4.5', notes: 'Strong developer love; weaker enterprise sales' },
+    { id: 'v4', name: 'Grafana Cloud', category: 'Observability — metrics',     status: 'active',     rating: '4.5', notes: 'OSS halo; free tier is real negotiation leverage' },
+    { id: 'v5', name: 'Splunk',        category: 'Observability — log mgmt',    status: 'inactive',   rating: '4.3', notes: 'Cisco-owned; legacy enterprise lock-in plays' },
   ],
   quotes: [
-    { id: 'q1', vendor_id: 'v2', description: 'GPU cluster — 24 nodes',     submitted_at: '2026-05-08', amount: '212500', status: 'negotiating' },
-    { id: 'q2', vendor_id: 'v1', description: 'Annual cloud commit',         submitted_at: '2026-05-05', amount: '184000', status: 'approved' },
-    { id: 'q3', vendor_id: 'v4', description: 'SaaS seats — 350 users',      submitted_at: '2026-05-02', amount: '42500',  status: 'under_review' },
-    { id: 'q4', vendor_id: 'v3', description: 'Edge router refresh',         submitted_at: '2026-04-28', amount: '67800',  status: 'draft' },
-    { id: 'q5', vendor_id: 'v5', description: 'Q3 logistics retainer',       submitted_at: '2026-04-24', amount: '31200',  status: 'approved' },
+    { id: 'q1', vendor_id: 'v1', description: 'Datadog — 500 hosts, APM+Infra+RUM',     submitted_at: '2026-05-16', amount: '1170000', status: 'negotiating', dig: "More reliable than New Relic during incidents; Honeycomb falls over above 100 hosts." },
+    { id: 'q2', vendor_id: 'v2', description: 'New Relic — 500 hosts, 24mo commit',     submitted_at: '2026-05-16', amount: '960000',  status: 'under_review', dig: "Datadog parity on APM. Cheaper unit economics post-PE." },
+    { id: 'q3', vendor_id: 'v3', description: 'Honeycomb — events tier, 100 hosts POC', submitted_at: '2026-05-15', amount: '54000',   status: 'draft',        dig: "Datadog cardinality bills are a tax on debugging." },
+    { id: 'q4', vendor_id: 'v4', description: 'Grafana Cloud — Pro, 500 hosts',         submitted_at: '2026-05-15', amount: '48000',   status: 'draft',        dig: "Datadog locks you into proprietary agents; we are OSS-first." },
+    { id: 'q5', vendor_id: 'v5', description: 'Splunk Observability — 500 hosts',       submitted_at: '2026-05-14', amount: '2400000', status: 'inactive',     dig: "Honeycomb does not scale past mid-market." },
   ],
   contracts: [
-    { id: 'c1', title: 'Cloud MSA — Axion',     description: '3-year master services',   start_date: '2025-01-01', expiry_date: '2027-12-31', value: '540000', status: 'active' },
-    { id: 'c2', title: 'GPU lease — NovaTech',  description: '24-node cluster',          start_date: '2026-06-01', expiry_date: '2029-05-31', value: '212500', status: 'negotiating' },
-    { id: 'c3', title: 'SaaS license — Proxima',description: '350 seats, annual',         start_date: '2026-01-15', expiry_date: '2026-07-14', value: '42500',  status: 'active' },
-    { id: 'c4', title: 'Logistics — Deltalink', description: 'Regional fulfillment',     start_date: '2025-09-01', expiry_date: '2026-08-31', value: '94800',  status: 'active' },
-    { id: 'c5', title: 'Print SOW — Beacon',    description: 'Brand collateral run',     start_date: '2026-03-01', expiry_date: '2026-09-01', value: '18600',  status: 'draft' },
+    { id: 'c1', title: 'Datadog MSA — under negotiation',  description: '500 hosts; 15 redlines flagged (7 high)',  start_date: '2026-07-01', expiry_date: '2027-06-30', value: '945000', status: 'negotiating' },
+    { id: 'c2', title: 'New Relic Order Form — pending',   description: 'Backup if Datadog talks slip',             start_date: '2026-07-01', expiry_date: '2028-06-30', value: '960000', status: 'draft' },
+    { id: 'c3', title: 'Honeycomb POC — provisioned',      description: 'Fallback #2 provisioned at 100 hosts',     start_date: '2026-05-15', expiry_date: '2026-08-15', value: '54000',  status: 'active' },
+    { id: 'c4', title: 'Grafana Cloud Pro — evaluation',   description: '90-day eval, OSS-first',                   start_date: '2026-05-01', expiry_date: '2026-07-30', value: '12000',  status: 'active' },
+    { id: 'c5', title: 'Splunk renewal — declined',        description: 'Existing contract not renewing',            start_date: '2024-07-01', expiry_date: '2026-06-30', value: '2400000', status: 'expiring' },
   ],
   negotiation_logs: [
-    { id: 'n1', author: 'Sarah Lin (Procure)', author_type: 'user',   created_at: '2026-05-08T10:00:00Z', message: 'Initial quote received at $212,500. Opening negotiation on volume discount.' },
-    { id: 'n2', author: 'NovaTech Ltd.',       author_type: 'vendor', created_at: '2026-05-09T14:20:00Z', message: 'We can offer a 5% storage discount paired with a 3-year support package.' },
-    { id: 'n3', author: 'Sarah Lin (Procure)', author_type: 'user',   created_at: '2026-05-10T09:15:00Z', message: 'Need delivery timeline tightened to 14 days; reviewing storage terms internally.' },
-    { id: 'n4', author: 'Mark Chen (Finance)', author_type: 'user',   created_at: '2026-05-12T16:00:00Z', message: 'Finance approved budget ceiling of $220K. Proceed with counter.' },
-    { id: 'n5', author: 'NovaTech Ltd.',       author_type: 'vendor', created_at: '2026-05-14T11:42:00Z', message: 'Confirmed 18-day lead time. Sending revised proposal with 7% discount and extended SLA shortly.' },
+    { id: 'n1', author: 'Scout (Qwen)',        author_type: 'user',   created_at: '2026-05-16T10:42:00Z', message: 'Ranked 5 observability vendors. Datadog #1, New Relic #2 (cheapest by unit economics).' },
+    { id: 'n2', author: 'Datadog · Morgan Chen', author_type: 'vendor', created_at: '2026-05-16T11:14:00Z', message: '$2,340/host/year quoted with 10% annual discount. We are more reliable than New Relic during incidents.' },
+    { id: 'n3', author: 'Hardball (Qwen3-Max)', author_type: 'user',   created_at: '2026-05-16T11:32:00Z', message: 'New Relic at $1,920/host/year on the table. Match $160/host/mo this week or shortlist drops to two and you are off it.' },
+    { id: 'n4', author: 'Diplomat (Z.ai GLM-5.1)', author_type: 'user', created_at: '2026-05-16T11:34:00Z', message: 'We are picking an observability partner for the next three years. 500 hosts today, projecting 3x by Q3 2027. Lock us in at $158 for 36 months.' },
+    { id: 'n5', author: 'Hardball (Qwen3-Max)', author_type: 'user',   created_at: '2026-05-16T11:48:00Z', message: 'Last move: $157.50/host, 12 months, no auto-renew, MSA liability cap in our favor. Signed by EOD Friday or we sign with New Relic Monday.' },
+    { id: 'n6', author: 'Referee (Qwen)',       author_type: 'user',   created_at: '2026-05-16T11:55:00Z', message: 'HARDBALL wins this round. Quarter-end clock + competing quote = discrete time-bounded leverage. Open hardball, close diplomat. Projected annual savings: $225,000.' },
+    { id: 'n7', author: 'Contract Diff (Qwen + Nosana)', author_type: 'user', created_at: '2026-05-16T12:02:00Z', message: '15 deviations flagged in the Datadog MSA. 7 high severity, including a 90-day auto-renewal trap and a missing data-deletion clause.' },
   ],
 }
 
