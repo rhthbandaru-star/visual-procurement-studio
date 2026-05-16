@@ -43,9 +43,13 @@ function mockResponse(path) {
 
 export async function apiFetch(path) {
   try {
+    const ctrl = new AbortController()
+    const t = setTimeout(() => ctrl.abort(), 1500)
     const res = await fetch(`${API_URL}${path}`, {
       headers: { 'x-api-key': ANON_KEY },
+      signal: ctrl.signal,
     })
+    clearTimeout(t)
     if (!res.ok) throw new Error(`API error ${res.status}`)
     return await res.json()
   } catch {
